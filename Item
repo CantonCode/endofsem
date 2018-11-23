@@ -1,0 +1,26 @@
+public class Item
+{
+	private Product product;
+	private int quantity;
+	
+	public Item(Product p, int quantity)
+	{
+		this.product = p;
+		this.quantity = quantity;
+	}
+	
+	public int getQuantity()
+	{
+		return quantity;
+	}
+	
+	public void setQuantity(int quantity)
+	{
+		this.quantity = quantity;
+	}
+	
+	public String toString()
+	{
+		return product.toString() + ", " + quantity;
+	}
+}
