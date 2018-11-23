@@ -55,12 +55,12 @@ public class VendingMachine
 			{
 				if(products.get(j).equals(p))
 				{
-					if(quantities.get(j) > 1)
-						quantities.set(j, (quantities.get(j) - 1));
-					else if(quantities.get(j) == 1)
+					if(items.get(j).getQuantity() > 1)
+						items.get(j).setQuantity(items.get(j).getQuantity() - 1);
+					else if(items.get(j).getQuantity() == 1)
 					{
 						products.remove(j);
-						quantities.remove(j);
+						items.remove(j);
 					}
 					done = true;
 				}
@@ -84,8 +84,8 @@ public class VendingMachine
 		{
 			if(products.get(i).toString().equals(a.toString()))
 			{
-				int nAmount = q + quantities.get(i);
-				quantities.set(i, nAmount);
+				int nAmount = q + items.get(i).getQuantity();
+				items.get(i).setQuantity(nAmount);
 				found = true;
 			}
 		}
@@ -93,7 +93,22 @@ public class VendingMachine
 		if(!found)
 		{
 			products.add(a);
-			quantities.add(q);
+			items.add(new Item(a, q));
 		}	
+	}
+	
+	public void writeProductsToFile() throws IOException
+	{
+		FileWriter fw = new FileWriter("Products.txt");
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		for (int i = 0; i < items.size(); i++)
+		{
+			bw.write(items.get(i).toString());
+			bw.newLine();
+		}
+		
+		bw.close();
+		fw.close();
 	}
 }
