@@ -10,9 +10,19 @@ public class VendingMachine
 	public CoinSet coins;
 	public CoinSet currentCoins;
 
-	public VendingMachine()
+	public VendingMachine() throws IOException
 	{ 
-		products = new ArrayList<Product>();
+		Scanner s = new Scanner(new FileReader("Products.txt"));
+		if(s != null)
+		{
+			while(s.hasNext())
+			{
+				String line = s.nextLine();
+				String[] split = line.split(", ");
+				products.add(new Product(split[0], Double.parseDouble(split[1])));
+				items.add(new Item(new Product(split[0], Double.parseDouble(split[1])), Integer.parseInt(split[2])));
+			}
+		}
 		coins = new CoinSet();
 		currentCoins = new CoinSet();
 	}
